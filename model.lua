@@ -3,7 +3,7 @@ require 'nn'
 require 'nnx'
 
 function model()
-	klass = 3
+	klass = 7
 	m = nn.Sequential()
 
 	-- Input 28*28*1
@@ -11,7 +11,7 @@ function model()
 	-- Second 7*7*64
 
 	-- first convolution layer
-	m:add(nn.SpatialConvolution(1, 32, 5, 5, 1, 1, 2, 2))
+	m:add(nn.SpatialConvolution(3, 32, 5, 5, 1, 1, 2, 2))
 	m:add(nn.ReLU())
 	m:add(nn.SpatialMaxPooling(2, 2, 2, 2))
 

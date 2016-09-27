@@ -18,8 +18,8 @@ end
 function predict(img)
 	-- 0.85 at epoch = 3
 	-- 1.00 at epoch = 5
-	-- overfitting at epoch 10
-	local epoch = 5
+	-- overfitting at epoch = 10
+	epoch = epoch or 3
 
 	local model = torch.load("models/" .. epoch .. ".mdl")
 
@@ -33,23 +33,28 @@ end
 
 ----------------------------------------
 --
---[[loadData()
+function classify(num)
+	epoch = num
 
-testSize = table.getn(test_data)
-errNum = 0
+	loadData()
 
-for i = 1, testSize do
-	pred = predict(test_data[i][1])
-	print("class: " .. test_data[i][2] .. " <-> " .. pred)
+	testSize = table.getn(test_data)
+	errNum = 0
 
-	if pred ~= test_data[i][2] then
-		errNum = errNum + 1
+	for i = 1, testSize do
+		pred = predict(test_data[i][1])
+		--print("class: " .. test_data[i][2] .. " <-> " .. pred)
+
+		if pred ~= test_data[i][2] then
+			print("Wrong class: " .. test_data[i][2] .. " <-> " .. pred .. " file:" .. test_data[i][3])
+			errNum = errNum + 1
+		end
 	end
-end
 
-print("-ErrorNum: " .. errNum)
-print("-TestSize: " .. testSize)
-print("-Accuracy: " .. (testSize - errNum) / testSize)]]
+	print("-ErrorNum: " .. errNum)
+	print("-TestSize: " .. testSize)
+	print("-Accuracy: " .. (testSize - errNum) / testSize)
+end
 
 function test()
 	print("hello world!")

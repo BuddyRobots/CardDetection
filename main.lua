@@ -6,15 +6,17 @@ require 'data'
 require 'util'
 require 'model'
 
-
-model()
-
 -- Criterion
 criterion = nn.ClassNLLCriterion()
 
 -- Prepare the data
 load_training_data()
 load_test_data()
+
+model()
+
+--epoch = 5
+--m = torch.load("models/" .. epoch .. ".mdl")
 
 x, dl_dx = m:getParameters()
 
@@ -35,7 +37,7 @@ end
 
 -- sgd parameters
 sgd_params = {
-	learningRate = 3e-5,
+	learningRate = 1e-3,
 	learningRateDecay = 0,
 	weightDecay = 0,
 	momentum = 0.9
@@ -134,4 +136,4 @@ function train_epoch(epoch_num)
 	end
 end
 
-train_epoch(10)
+--train_epoch(10)

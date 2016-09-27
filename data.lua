@@ -31,12 +31,12 @@ function load_data()
 			for img_filename in lfs.dir(type_str .. "_set/" .. sub_folder) do
 				if (img_filename ~= "." and img_filename ~= "..") then
 					img_filepath = type_str .. "_set/" .. sub_folder .. "/" .. img_filename
-					image_file = image.load(img_filepath, 1, 'double')
+					image_file = image.load(img_filepath, 3, 'double')
 
 					--print(">>>>>>>>> " .. image_file:dim())
 					--print(".........." .. image_file:size(1) .. " " .. image_file:size(2) .. " " .. image_file:size(3))					
 
-					for i = 1,img_size do
+					--[[for i = 1,img_size do
 						for j = 1,img_size do
 							if image_file[1][i][j] > 0.5 then
 								image_file[1][i][j] = 255
@@ -44,14 +44,14 @@ function load_data()
 								image_file[1][i][j] = 0
 							end
 						end
-					end					
+					end]]
 
-					local img = torch.DoubleTensor(1, img_size, img_size):fill(255)
-					img = image_file
-					img = ( img - 123 ) / 123
-					local ori_img = torch.ByteTensor(1, img_size, img_size):fill(255)
+					--local img = torch.DoubleTensor(3, img_size, img_size):fill(255)
+					local img = image_file
+					--img = ( img - 123 ) / 123
+					--local ori_img = torch.ByteTensor(1, img_size, img_size):fill(255)
 
-					type_data[type_idx] = {img, label}
+					type_data[type_idx] = {img, label, img_filename}
 
 					type_idx = type_idx + 1
 				end
