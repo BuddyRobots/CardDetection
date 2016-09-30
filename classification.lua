@@ -13,15 +13,13 @@ function loadData()
 end
 
 ----------------------------------------
--- input : DoubleTensor img 1*28*28
+-- input : path of the image
 -- output: int class
-function predict(img)
-	-- 0.85 at epoch = 3
-	-- 1.00 at epoch = 5
-	-- overfitting at epoch = 10
-	epoch = epoch or 3
+function predict(imgPath, modelPath)
 
-	local model = torch.load("models/" .. epoch .. ".mdl")
+	local image = image.load(imgPath, 3, 'double')
+
+	local model = torch.load(modelPath)
 
 	-- pedict
 	local pred = model:forward(img)
